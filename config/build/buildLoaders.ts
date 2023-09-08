@@ -16,7 +16,7 @@ export const buildLoaders = ({
             options: {
                modules: {
                   auto: (resPath: string) => Boolean(resPath.includes('.module.')),
-                  localIndentName: isDev
+                  localIdentName: isDev
                      ? '[path][name]__[local]--[hash:base64:5]'
                      : '[hash:base64:8]'
                }
