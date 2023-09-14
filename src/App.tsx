@@ -7,12 +7,14 @@ import { AboutPageAsync } from './pages/AboutPage/AboutPage.async';
 import { MainPageAsync } from './pages/MainPage/MainPage.async';
 import { useTheme } from './theme/useTheme';
 import { classNames } from './helpers/classNames/classNames';
+import Chart from './components/ui/Chart/Chart';
 
 const App = () => {
    const { theme, toggleTheme } = useTheme();
 
    return (
-      <div className={classNames('app', {}, [theme])}>
+      <>
+      {/* <div className={classNames('app', {}, [theme])}>
          <Counter />
          <Link to='/'>Главная</Link>
          <Link to='/about'>О сайте</Link>
@@ -26,7 +28,9 @@ const App = () => {
                <Route path='/' element={<MainPageAsync />} />
             </Routes>
          </Suspense>
-      </div>
+      </div> */}
+      <Chart />
+      </>
    );
 };
 
