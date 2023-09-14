@@ -40,14 +40,20 @@ export const options = {
 
 const Chart = () => {
    const [length, setLength] = useState(30);
+   let labels: string[] = [];
 
-   const labels: string[] = [...Array(length)].map(
-      (number, index) => (number = index.toString())
-   );
+   if (length < 1000) {
+      labels = [...Array(length)].map(
+         (number, index) => (number = index.toString())
+      );
+   } else {
+      alert('Максимальное количество элементов 999!');
+   }
 
    let fakerData: number[] = [];
 
    const [labelData, setLabelData] = useState([]);
+
    useEffect(() => {
       fakerData = labels.map(() => faker.number.int({ min: 5, max: 100 }));
       setLabelData(fakerData);
@@ -74,11 +80,9 @@ const Chart = () => {
    };
 
    const handleSort = () => {
-      bubbleSort(fakerData);
-      console.log(
-         '🚀 ~ file: Chart.tsx:78 ~ handleSort ~ fakerData:',
-         fakerData
-      );
+      const arr = bubbleSort(fakerData);
+      setLabelData(arr);
+      console.log("🚀 ~ file: Chart.tsx:85 ~ handleSort ~ arr:", arr)
    };
 
    return (
