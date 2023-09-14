@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -12,6 +12,9 @@ import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import styles from './Chart.module.scss';
+import Input from '../Input/Input';
+import Button from '../Button/Button';
+import { bubbleSort } from '../../../helpers/bubbleSort/bubbleSort';
 
 ChartJS.register(
    CategoryScale,
@@ -35,30 +38,64 @@ export const options = {
    }
 };
 
-const length = 30;
-const numbers = [...Array(length)];
-console.log(numbers);
-
-const labels = numbers.map((number, index) => (number = index.toString()));
-console.log('🚀 ~ file: Chart.tsx:53 ~ numberLabels:', labels);
-
-export const data = {
-   labels,
-   datasets: [
-      {
-         label: 'Dataset 1',
-         data: labels.map(() => faker.number.int({ min: 5, max: 100 })),
-         backgroundColor: 'rgba(255, 99, 132, 0.5)'
-      }
-   ]
-};
-
 const Chart = () => {
+   const [length, setLength] = useState(30);
+
+   const labels: string[] = [...Array(length)].map(
+      (number, index) => (number = index.toString())
+   );
+
+   let fakerData: number[] = [];
+
+   const [labelData, setLabelData] = useState([]);
+   useEffect(() => {
+      fakerData = labels.map(() => faker.number.int({ min: 5, max: 100 }));
+      setLabelData(fakerData);
+      /* console.log(
+         '🚀 ~ file: Chart.tsx:56 ~ useEffect ~ fakerData:',
+         fakerData
+      ); */
+   }, [length]);
+
+   const data = {
+      labels,
+      datasets: [
+         {
+            label: 'Random Dataset',
+            data: labelData,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)'
+         }
+      ]
+   };
+
+   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const value = Number(event.target.value);
+      setLength(value);
+   };
+
+   const handleSort = () => {
+      bubbleSort(fakerData);
+      console.log(
+         '🚀 ~ file: Chart.tsx:78 ~ handleSort ~ fakerData:',
+         fakerData
+      );
+   };
+
    return (
       <>
-         <Bar options={options} data={data} />
+         <div className={styles.chart}>
+            <Bar options={options} data={data} />
+         </div>
          <div className={styles.chartConfig}>
-            <h2>Input</h2>
+            <h3>Количество элементов</h3>
+            <div className={styles.chartForm}></div>
+            <Input
+               type='text'
+               value={length}
+               placeholder='Количество элементов'
+               onChange={handleChange}
+            />
+            <Button onClick={handleSort}>Сортировка</Button>
          </div>
       </>
    );
