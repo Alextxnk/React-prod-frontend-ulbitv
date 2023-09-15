@@ -14,7 +14,7 @@ import _ from 'lodash';
 import styles from './Chart.module.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-import { bubbleSort } from '../../../helpers/bubbleSort/bubbleSort';
+import { bubbleSort } from '../../../shared/lib/bubbleSort/bubbleSort';
 
 ChartJS.register(
    CategoryScale,
@@ -86,7 +86,7 @@ const Chart = () => {
    };
 
    return (
-      <>
+      <div className={styles.chartMain}>
          <div className={styles.chart}>
             <Bar options={options} data={data} />
          </div>
@@ -101,7 +101,7 @@ const Chart = () => {
             />
             <Button onClick={handleSort}>Сортировка</Button>
          </div>
-      </>
+      </div>
    );
 };
 
