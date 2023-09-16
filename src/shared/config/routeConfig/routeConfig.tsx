@@ -1,15 +1,18 @@
 import { AboutPage } from 'pages/AboutPage';
+import { ChartPage } from 'pages/ChartPage';
 import { MainPage } from 'pages/MainPage';
 import { RouteProps } from 'react-router-dom';
 
 export enum AppRoutes {
    main = 'main',
-   about = 'about'
+   about = 'about',
+   chart = 'chart'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
    [AppRoutes.main]: '/',
-   [AppRoutes.about]: '/about'
+   [AppRoutes.about]: '/about',
+   [AppRoutes.chart]: '/chart'
 };
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
@@ -20,5 +23,9 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
    [AppRoutes.about]: {
       path: RoutePath.about,
       element: <AboutPage />
+   },
+   [AppRoutes.chart]: {
+      path: RoutePath.chart,
+      element: <ChartPage />
    }
 };

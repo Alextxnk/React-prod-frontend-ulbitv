@@ -12,6 +12,7 @@ export const Navbar = ({ className }: NavbarProps) => {
       <div className={classNames(styles.navbar, [className])}>
          <Link className={styles.navbar__link} to='/'>Главная</Link>
          <Link className={styles.navbar__link} to='/about'>О сайте</Link>
+         <Link className={styles.navbar__link} to='/chart'>График</Link>
       </div>
    );
 };

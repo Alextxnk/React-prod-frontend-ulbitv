@@ -9,6 +9,6 @@ export const bubbleSort = (arr: number[]): number[] => {
       }
    }
 
-   console.log('🚀 ~ file: bubbleSort.ts:12 ~ bubbleSort ~ arr:', arr);
+   // console.log('🚀 ~ file: bubbleSort.ts:12 ~ bubbleSort ~ arr:', arr);
    return arr;
 };
