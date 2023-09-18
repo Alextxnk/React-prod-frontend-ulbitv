@@ -5,7 +5,7 @@ import React, {
    useRef,
    useState
 } from 'react';
-/* import {
+import {
    Chart as ChartJS,
    CategoryScale,
    LinearScale,
@@ -14,8 +14,8 @@ import React, {
    Tooltip,
    Legend
 } from 'chart.js';
-import { Chart } from 'react-chartjs-2'; */
-import {
+import { Bar, Chart } from 'react-chartjs-2';
+/* import {
    Chart as ChartJS,
    LinearScale,
    CategoryScale,
@@ -25,7 +25,7 @@ import {
    Legend,
    Tooltip
 } from 'chart.js';
-import { Chart } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2'; */
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import styles from './ChartLayout.module.scss';
@@ -33,15 +33,15 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
 
-/* ChartJS.register(
+ChartJS.register(
    CategoryScale,
    LinearScale,
    BarElement,
    Title,
    Tooltip,
    Legend
-); */
-
+);
+/* 
 ChartJS.register(
    LinearScale,
    CategoryScale,
@@ -50,7 +50,7 @@ ChartJS.register(
    LineElement,
    Legend,
    Tooltip
-);
+); */
 
 export const options = {
    responsive: true,
@@ -82,7 +82,7 @@ const triggerTooltip = (chart: ChartJS | null) => {
             {
                datasetIndex: 0,
                index: 2
-            },
+            }
             /* {
                datasetIndex: 1,
                index: 2
@@ -94,6 +94,8 @@ const triggerTooltip = (chart: ChartJS | null) => {
          }
       );
    }
+
+   chart.update();
 };
 
 const ChartLayout = () => {
@@ -162,11 +164,22 @@ const ChartLayout = () => {
             data: labelData,
             // data: sortedNumbers,
             backgroundColor: 'rgba(255, 99, 132, 0.5)'
-         }
+         },
+         /* {
+            type: 'bar' as const,
+            label: 'Random Dataset',
+            // backgroundColor: 'rgba(75, 192, 192, 0.8)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            // data: labels.map(() => faker.number.int({ min: 0, max: 100 })),
+            data: labelData,
+            borderColor: 'white',
+            borderWidth: 2
+         } */
       ]
    };
 
-   const chartRef = useRef<ChartJS>(null);
+   // const chartRef = useRef<ChartJS>(null);
+   const chartRef = useRef();
 
    useEffect(() => {
       const chart = chartRef.current;
@@ -177,8 +190,8 @@ const ChartLayout = () => {
    return (
       <div className={styles.chartMain}>
          <div className={styles.chart}>
-            {/* <Bar options={options} data={data} /> */}
-            <Chart ref={chartRef} type='bar' data={data} options={options} />
+            <Bar ref={chartRef} options={options} data={data} />
+            {/* <Chart ref={chartRef} type='bar' data={data} /> */}
          </div>
          <div className={styles.chartConfig}>
             <h3>Количество элементов</h3>

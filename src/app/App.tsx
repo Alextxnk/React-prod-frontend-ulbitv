@@ -1,11 +1,12 @@
 import React from 'react';
 import { useTheme } from './providers/ThemeProvider';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from 'shared/lib';
 import { AppRouter } from './providers/router';
 import { Navbar } from 'widgets/Navbar';
 import './styles/index.scss';
 import Button from 'components/ui/Button/Button';
-import ChartLayout from 'components/ui/ChartLayout/ChartLayout';
+import Chart from 'components/ui/Chart/Chart';
+import NewChart from 'components/ui/Chart/NewChart';
 
 const App = () => {
    const { theme, toggleTheme } = useTheme();
@@ -19,7 +20,8 @@ const App = () => {
             </div>
             <AppRouter />
          </div> */}
-         <ChartLayout />
+         {/* <Chart /> */}
+         <NewChart />
       </>
    );
 };

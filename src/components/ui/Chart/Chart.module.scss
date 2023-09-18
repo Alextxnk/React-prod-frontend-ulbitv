@@ -1,0 +1,23 @@
+.chart {
+   min-width: 90vw;
+   max-height: 85vh;
+   margin: 10px;
+   border: 1px solid #000;
+   display: flex;
+   justify-content: space-around;
+}
+
+.chartItem {
+   min-height: 75vh;
+   width: 95%;
+   margin: 10px;
+   border: 1px solid #000;
+   background: rgba(197, 3, 3, 0.5);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.chartConfig {
+   margin: 10px;
+}
