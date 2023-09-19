@@ -1,10 +1,10 @@
-import Chart from 'components/ui/Chart/ChartLayout';
 import React from 'react';
+import NewChart from 'components/ui/Chart/NewChart';
 
 const ChartPage = () => {
    return (
       <>
-         <Chart />
+         <NewChart />
       </>
    );
 };

@@ -4,11 +4,11 @@
 @import 'themes/dark';
 
 .app {
-   width: 800px;
+   min-width: 100vw;
    font: var(--font-m);
 
    background: var(--bg-color);
    color: var(--primary-color);
 
-   min-height: 100vh;
+   height: 100vh;
 }

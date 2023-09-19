@@ -1,22 +1,33 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import styles from './NewChart.module.scss';
-import Button from '../Button/Button';
+import React, { useState, useEffect, ReactNode, ChangeEvent } from 'react';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
 import _ from 'lodash';
-
-const numberData: number[] = [100, 40, 15, 126, 29, 89];
+import styles from './NewChart.module.scss';
 
 const NewChart = () => {
-   const [numberExpensesData, setNumberExpensesData] =
-      useState<number[]>(numberData);
+   const [length, setLength] = useState<number>(70);
+   const [expensesData, setExpensesData] = useState<number[]>([]);
 
-   const maxExpense: number = 200;
-   const chartHeight: number = maxExpense + 20;
-   const barWidth: number = 50;
-   const barMargin: number = 30;
+   const max: number = 1000;
+   const chartHeight: number = max + 20;
+   const barWidth: number = 20;
+   const barMargin: number = 20;
 
-   const numberOfBars: number = numberExpensesData.length;
-   let width: number = numberOfBars * (barWidth + barMargin);
+   const createRandomData = (data: number[]): number[] =>
+      data.map((expense: number) => (expense = _.random(0, max)));
+
+   const data: number[] = createRandomData([...Array(length)]);
+
+   useEffect(() => {
+      if (length <= 100) {
+         setExpensesData(data);
+      } else {
+         alert('Максимальное количество элементов 100');
+      }
+   }, [length]);
+
+   let width: number = length * (barWidth + barMargin);
 
    const calculateHighestExpense = (data: number[]): number =>
       data.reduce((acc, cur) => {
@@ -24,61 +35,67 @@ const NewChart = () => {
       }, 0);
 
    const [highestExpense, setHighestExpense] = useState<number>(
-      calculateHighestExpense(numberData)
+      calculateHighestExpense(data)
    );
 
-   /* useEffect(() => {
-      console.log(
-         'NewChart.tsx:41 ~ numberExpensesData:',
-         JSON.stringify(numberExpensesData)
-      );
-      console.log('NewChart.tsx:42 ~ highestExpense:', highestExpense);
-   }); */
-
-   const createRandomData = (data: number[]): number[] =>
-      data.map((expense: number) => (expense = _.random(0, maxExpense)));
-
-   const refreshChart = () => {
-      const newData = createRandomData(numberExpensesData);
+   const handleCreate = () => {
+      const newData = createRandomData(expensesData);
       const newHighestExpense = calculateHighestExpense(newData);
-      setNumberExpensesData(newData);
+      setExpensesData(newData);
       setHighestExpense(newHighestExpense);
    };
 
    const handleSort = () => {
-      const sortedArr = bubbleSort(numberExpensesData);
+      const sortedArr = bubbleSort(expensesData);
       const newHighestExpense = calculateHighestExpense(sortedArr);
 
-      setNumberExpensesData(sortedArr);
+      setExpensesData(sortedArr);
       setHighestExpense(newHighestExpense);
    };
 
+   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const value = Number(event.target.value);
+      setLength(value);
+   };
+
    return (
-      <div className={styles.body}>
-         <p className={styles.legend}>
-            <span className={styles.expense}>Expense</span>
-            <span className={styles.highestExpense}>Highest expense</span>
-         </p>
+      <>
+         <div className={styles.body}>
+            <div className={styles.legend}>
+               <span className={styles.expense}>Элемент</span>
+               <span className={styles.highestExpense}>Наибольший элемент</span>
+            </div>
 
-         <Chart height={chartHeight} width={width}>
-            {numberExpensesData.map((data, index) => {
-               const barHeight = data;
-               return (
-                  <Bar
-                     key={index}
-                     x={index * (barWidth + barMargin)}
-                     y={chartHeight - barHeight}
-                     width={barWidth}
-                     height={barHeight}
-                     highestExpense={highestExpense}
-                  />
-               );
-            })}
-         </Chart>
+            <Chart height={chartHeight} width={width}>
+               {expensesData.map((data, index) => {
+                  const barHeight = data;
+                  return (
+                     <Bar
+                        key={index}
+                        x={index * (barWidth + barMargin)}
+                        y={chartHeight - barHeight}
+                        width={barWidth}
+                        height={barHeight}
+                        content={barHeight}
+                        highestExpense={highestExpense}
+                     />
+                  );
+               })}
+            </Chart>
+         </div>
 
-         <Button onClick={refreshChart}>Новый график</Button>
-         <Button onClick={handleSort}>Сортировка</Button>
-      </div>
+         <div className={styles.chartConfig}>
+            <h3 className={styles.head}>Количество элементов</h3>
+            <Input
+               type='text'
+               value={length}
+               placeholder='Количество элементов'
+               onChange={handleChange}
+            />
+            <Button onClick={handleSort}>Сортировка</Button>
+            <Button onClick={handleCreate}>Новый массив</Button>
+         </div>
+      </>
    );
 };
 
@@ -90,10 +107,9 @@ interface ChartProps {
 
 const Chart = ({ children, width, height }: ChartProps) => (
    <svg
-      className={styles.svg}
       viewBox={`0 0 ${width} ${height}`}
       width='100%'
-      height='70%'
+      height='100%'
       preserveAspectRatio='xMidYMax meet'
    >
       {children}
@@ -106,19 +122,24 @@ interface BarProps {
    width: number;
    height: number;
    highestExpense: number;
+   content: number;
 }
 
-const Bar = ({ x, y, width, height, highestExpense }: BarProps) => (
+const Bar = ({ x, y, width, height, highestExpense, content }: BarProps) => (
    <>
       <rect
          x={x}
          y={y}
          width={width}
          height={height}
-         fill={highestExpense === height ? `purple` : `black`}
+         fill={
+            highestExpense === content
+               ? `rgba(197, 3, 3, 0.65)`
+               : `rgba(75, 192, 192, 0.8)`
+         }
       />
-      <text x={x + width / 3} y={y - 5}>
-         {height}
+      <text x={x} y={y - 5}>
+         {content}
       </text>
    </>
 );
