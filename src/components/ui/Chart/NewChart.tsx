@@ -4,33 +4,11 @@ import Button from '../Button/Button';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
 import _ from 'lodash';
 
-interface DataProps {
-   name: string;
-   expense: number;
-}
-
-const data: DataProps[] = [
-   { name: 'Phone', expense: 151 },
-   { name: 'Electricity', expense: 100 },
-   { name: 'Car', expense: 5 },
-   { name: 'House', expense: 43 },
-   { name: 'Food', expense: 56 },
-   { name: 'Leisure', expense: 182 }
-];
-
-const sortedData: DataProps[] = [
-   { name: 'Car', expense: 5 },
-   { name: 'House', expense: 43 },
-   { name: 'Food', expense: 56 },
-   { name: 'Electricity', expense: 100 },
-   { name: 'Phone', expense: 151 },
-   { name: 'Leisure', expense: 182 }
-];
-
 const numberData: number[] = [100, 40, 15, 126, 29, 89];
 
+const numberSortedData: number[] = [15, 29, 40, 89, 100, 126];
+
 const NewChart = () => {
-   const [expensesData, setExpensesData] = useState<DataProps[]>(data);
    const [numberExpensesData, setNumberExpensesData] =
       useState<number[]>(numberData);
 
@@ -39,46 +17,47 @@ const NewChart = () => {
    const barWidth: number = 50;
    const barMargin: number = 30;
 
-   const numberOfBars: number = expensesData.length;
+   const numberOfBars: number = numberExpensesData.length;
    let width: number = numberOfBars * (barWidth + barMargin);
 
    // Calculate highest expense for the month
-   const calculateHighestExpense = (data: DataProps[]): number =>
+   const calculateHighestExpense = (data: number[]): number =>
       data.reduce((acc, cur) => {
-         const { expense } = cur;
-         return expense > acc ? expense : acc;
+         return cur > acc ? cur : acc;
       }, 0);
 
    const [highestExpense, setHighestExpense] = useState<number>(
-      calculateHighestExpense(data)
+      calculateHighestExpense(numberData)
    );
 
    useEffect(() => {
       console.log(
-         'NewChart.tsx:41 ~ expensesData:',
-         JSON.stringify(expensesData)
+         'NewChart.tsx:41 ~ numberExpensesData:',
+         JSON.stringify(numberExpensesData)
       );
       console.log('NewChart.tsx:42 ~ highestExpense:', highestExpense);
    });
 
-   const createRandomData = (data: DataProps[]) =>
-      data.map((exp) => ({
-         name: exp.name,
-         // expense: Math.floor(Math.random() * maxExpense),
-         expense: _.random(0, maxExpense)
-      }));
+   const createRandomData = (data: number[]): number[] =>
+      data.map((expense: number) => (expense = _.random(0, maxExpense)));
 
    const refreshChart = () => {
-      const newData = createRandomData(expensesData);
+      const newData = createRandomData(numberExpensesData);
       const newHighestExpense = calculateHighestExpense(newData);
-      setExpensesData(newData);
+      setNumberExpensesData(newData);
       setHighestExpense(newHighestExpense);
    };
 
    const handleSort = () => {
-      // const arr: number[] = bubbleSort(labelData);
-      const newHighestExpense = calculateHighestExpense(sortedData);
-      setExpensesData(sortedData);
+      const newHighestExpense = calculateHighestExpense(numberSortedData);
+      const sortedArr = bubbleSort(numberExpensesData);
+      console.log(
+         '🚀 ~ file: NewChart.tsx:54 ~ handleSort ~ sortedArr:',
+         sortedArr
+      );
+
+      // setNumberExpensesData(numberSortedData);
+      setNumberExpensesData(sortedArr);
       setHighestExpense(newHighestExpense);
    };
 
@@ -90,16 +69,15 @@ const NewChart = () => {
          </p>
 
          <Chart height={chartHeight} width={width}>
-            {expensesData.map((data, index) => {
-               const barHeight = data.expense;
+            {numberExpensesData.map((data, index) => {
+               const barHeight = data;
                return (
                   <Bar
-                     key={data.name}
+                     key={index}
                      x={index * (barWidth + barMargin)}
                      y={chartHeight - barHeight}
                      width={barWidth}
                      height={barHeight}
-                     expenseName={data.name}
                      highestExpense={highestExpense}
                   />
                );
@@ -135,18 +113,10 @@ interface BarProps {
    y: number;
    width: number;
    height: number;
-   expenseName: string;
    highestExpense: number;
 }
 
-const Bar = ({
-   x,
-   y,
-   width,
-   height,
-   expenseName,
-   highestExpense
-}: BarProps) => (
+const Bar = ({ x, y, width, height, highestExpense }: BarProps) => (
    <>
       <rect
          x={x}
@@ -156,7 +126,6 @@ const Bar = ({
          fill={highestExpense === height ? `purple` : `black`}
       />
       <text x={x + width / 3} y={y - 5}>
-         {/* {highestExpense === height ? `${expenseName}: ${height}` : `${height}`} */}
          {height}
       </text>
    </>
