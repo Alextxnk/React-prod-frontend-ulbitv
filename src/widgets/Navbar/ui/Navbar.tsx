@@ -13,6 +13,7 @@ export const Navbar = ({ className }: NavbarProps) => {
          <Link className={styles.navbar__link} to='/'>Главная</Link>
          <Link className={styles.navbar__link} to='/about'>О сайте</Link>
          <Link className={styles.navbar__link} to='/chart'>График</Link>
+         <Link className={styles.navbar__link} to='/chartjs'>Chart js</Link>
       </div>
    );
 };
