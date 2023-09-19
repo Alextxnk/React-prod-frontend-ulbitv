@@ -6,8 +6,6 @@ import _ from 'lodash';
 
 const numberData: number[] = [100, 40, 15, 126, 29, 89];
 
-const numberSortedData: number[] = [15, 29, 40, 89, 100, 126];
-
 const NewChart = () => {
    const [numberExpensesData, setNumberExpensesData] =
       useState<number[]>(numberData);
@@ -20,7 +18,6 @@ const NewChart = () => {
    const numberOfBars: number = numberExpensesData.length;
    let width: number = numberOfBars * (barWidth + barMargin);
 
-   // Calculate highest expense for the month
    const calculateHighestExpense = (data: number[]): number =>
       data.reduce((acc, cur) => {
          return cur > acc ? cur : acc;
@@ -30,13 +27,13 @@ const NewChart = () => {
       calculateHighestExpense(numberData)
    );
 
-   useEffect(() => {
+   /* useEffect(() => {
       console.log(
          'NewChart.tsx:41 ~ numberExpensesData:',
          JSON.stringify(numberExpensesData)
       );
       console.log('NewChart.tsx:42 ~ highestExpense:', highestExpense);
-   });
+   }); */
 
    const createRandomData = (data: number[]): number[] =>
       data.map((expense: number) => (expense = _.random(0, maxExpense)));
@@ -49,14 +46,9 @@ const NewChart = () => {
    };
 
    const handleSort = () => {
-      const newHighestExpense = calculateHighestExpense(numberSortedData);
       const sortedArr = bubbleSort(numberExpensesData);
-      console.log(
-         '🚀 ~ file: NewChart.tsx:54 ~ handleSort ~ sortedArr:',
-         sortedArr
-      );
+      const newHighestExpense = calculateHighestExpense(sortedArr);
 
-      // setNumberExpensesData(numberSortedData);
       setNumberExpensesData(sortedArr);
       setHighestExpense(newHighestExpense);
    };
