@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import _ from 'lodash';
 import styles from './Chart.module.scss';
 import Button from '../Button/Button';
@@ -36,8 +36,11 @@ const Chart = () => {
       const arr: number[] = bubbleSort(labelData);
       setLabelData(arr);
       console.log('🚀 ~ file: Chart.tsx:38 ~ handleSort ~ arr:', arr);
-      
-      console.log("🚀 ~ file: Chart.tsx:40 ~ handleSort ~ labelData:", labelData)
+
+      console.log(
+         '🚀 ~ file: Chart.tsx:40 ~ handleSort ~ labelData:',
+         labelData
+      );
       // return arr;
    };
 
@@ -55,14 +58,14 @@ const Chart = () => {
 
    return (
       <>
-         <div className={styles.chart}>
+         <div className={styles.Chart}>
             {sortedNumbers.map((chart, index) => (
-               <div className={styles.chartItem} key={index}>
+               <div className={styles.ChartItem} key={index}>
                   {chart}
                </div>
             ))}
          </div>
-         <div className={styles.chartConfig}>
+         <div className={styles.ChartConfig}>
             <h3>Количество элементов</h3>
             <Input
                type='text'

@@ -17,4 +17,4 @@ export const classNames = (
 // пример использования
 // classNames('remove-btn', ['ghost'], { hovered: true, red: false });
 // результат
-// 'remove-btn hovered ghost'
+// 'remove-btn ghost hovered'

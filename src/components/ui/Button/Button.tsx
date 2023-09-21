@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import styles from './Button.module.scss';
 
 interface ButtonProps {
@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button = ({ children, ...props }: ButtonProps) => {
    return (
-      <button {...props} className={styles.button}>
+      <button {...props} className={styles.Button}>
          {children}
       </button>
    );

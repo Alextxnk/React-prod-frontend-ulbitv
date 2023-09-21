@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import styles from './Input.module.scss';
 
 interface InputProps {
@@ -9,7 +9,7 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = (props) => {
-   return <input {...props} className={styles.input} />;
+   return <input {...props} className={styles.Input} />;
 };
 
 export default Input;

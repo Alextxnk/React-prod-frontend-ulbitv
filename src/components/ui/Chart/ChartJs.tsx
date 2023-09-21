@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -92,13 +92,12 @@ const ChartJs = () => {
    };
 
    return (
-      <div className={styles.chartMain}>
-         <div className={styles.chart}>
+      <div className={styles.ChartMain}>
+         <div className={styles.Chart}>
             <Bar options={options} data={data} />
          </div>
-         <div className={styles.chartConfig}>
+         <div className={styles.ChartConfig}>
             <h3>Количество элементов</h3>
-            <div className={styles.chartForm}></div>
             <Input
                type='text'
                value={length}

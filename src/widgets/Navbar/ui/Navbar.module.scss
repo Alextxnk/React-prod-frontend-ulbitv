@@ -1,5 +1,5 @@
-.navbar {
-   height: 50px;
+.Navbar {
+   height: var(--navbar-height);
    width: 100vw;
    display: flex;
    align-items: center;
@@ -7,8 +7,10 @@
    background: var(--inverted-bg-color);
 }
 
-.navbar__link {
-   text-decoration: none;
-   color: var(--primary-color);
-   padding: 0 10px;
+.Links {
+   margin-left: auto;
+}
+
+.MainLink {
+   margin-right: 15px;
 }

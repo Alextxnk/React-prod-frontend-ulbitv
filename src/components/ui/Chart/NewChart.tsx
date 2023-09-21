@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode, ChangeEvent } from 'react';
+import { useState, useEffect, ReactNode, ChangeEvent } from 'react';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
 import Button from '../Button/Button';
 import Input from '../Input/Input';

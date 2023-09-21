@@ -1,4 +1,3 @@
-import React from 'react';
 import NewChart from 'components/ui/Chart/NewChart';
 
 const ChartPage = () => {
