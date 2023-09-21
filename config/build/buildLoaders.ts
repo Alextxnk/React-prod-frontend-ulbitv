@@ -5,6 +5,10 @@ import { BuildOptions } from './types/config';
 export const buildLoaders = ({
    isDev
 }: BuildOptions): webpack.RuleSetRule[] => {
+   const svgLoader = {
+      
+   };
+
    const cssLoader = {
       test: /\.s[ac]ss$/i,
       use: [
