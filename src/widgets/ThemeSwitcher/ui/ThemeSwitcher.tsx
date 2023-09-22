@@ -1,7 +1,7 @@
 import Button, { ThemeButton } from 'shared/ui/Button/Button';
 import { useTheme, Theme } from 'app/providers/ThemeProvider';
 import { classNames } from 'shared/lib';
-import { SunMoon, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import styles from './ThemeSwitcher.module.scss';
 
 interface ThemeSwitcherProps {
@@ -17,7 +17,7 @@ const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
          className={classNames(styles.ThemeSwitcher, [className])}
          onClick={toggleTheme}
       >
-         {theme === Theme.light ? <Moon /> : <SunMoon />}
+         {theme === Theme.light ? <Moon /> : <Sun />}
       </Button>
    );
 };
