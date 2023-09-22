@@ -1,4 +1,4 @@
-import NewChart from 'components/ui/Chart/NewChart';
+import NewChart from 'shared/ui/Chart/NewChart';
 
 const ChartPage = () => {
    return (

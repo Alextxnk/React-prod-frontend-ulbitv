@@ -1,27 +1,23 @@
-import Button from 'components/ui/Button/Button';
-import { useTheme } from 'app/providers/ThemeProvider';
-import styles from './ThemeSwitcher.module.scss';
+import Button from 'shared/ui/Button/Button';
+import { useTheme, Theme } from 'app/providers/ThemeProvider';
 import { classNames } from 'shared/lib';
 import { SunMoon, Moon } from 'lucide-react';
+import styles from './ThemeSwitcher.module.scss';
 
 interface ThemeSwitcherProps {
    className?: string;
 }
 
 const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
-   const { toggleTheme } = useTheme();
+   const { theme, toggleTheme } = useTheme();
 
    return (
-      <>
-         <SunMoon />
-         <Moon />
-         <Button
-            className={classNames(styles.ThemeSwitcher, [className])}
-            onClick={toggleTheme}
-         >
-            Сменить тему
-         </Button>
-      </>
+      <Button
+         className={classNames(styles.ThemeSwitcher, [className])}
+         onClick={toggleTheme}
+      >
+         {theme === Theme.light ? <Moon /> : <SunMoon />}
+      </Button>
    );
 };
 

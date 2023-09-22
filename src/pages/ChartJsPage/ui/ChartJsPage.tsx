@@ -1,4 +1,4 @@
-import ChartJs from 'components/ui/Chart/ChartJs';
+import ChartJs from 'shared/ui/Chart/ChartJs';
 
 const ChartJsPage = () => {
    return (
