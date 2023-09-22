@@ -1,18 +1,23 @@
-import { MouseEventHandler, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 import styles from './Button.module.scss';
 import { classNames } from 'shared/lib';
 
-interface ButtonProps {
-   children: ReactNode;
-   onClick: MouseEventHandler<HTMLElement>;
-   className?: string;
+export enum ThemeButton {
+   clear = 'clear'
 }
 
-const Button = ({ children, ...props }: ButtonProps) => {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+   className?: string;
+   theme?: ThemeButton;
+}
+
+const Button: FC<ButtonProps> = (props) => {
+   const { className, theme, children, ...otherProps } = props;
+
    return (
       <button
-         {...props}
-         className={classNames(styles.Button, [props.className])}
+         className={classNames(styles.Button, [className, styles[theme]])}
+         {...otherProps}
       >
          {children}
       </button>

@@ -1,4 +1,4 @@
-import Button from 'shared/ui/Button/Button';
+import Button, { ThemeButton } from 'shared/ui/Button/Button';
 import { useTheme, Theme } from 'app/providers/ThemeProvider';
 import { classNames } from 'shared/lib';
 import { SunMoon, Moon } from 'lucide-react';
@@ -13,6 +13,7 @@ const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
 
    return (
       <Button
+         theme={ThemeButton.clear}
          className={classNames(styles.ThemeSwitcher, [className])}
          onClick={toggleTheme}
       >
