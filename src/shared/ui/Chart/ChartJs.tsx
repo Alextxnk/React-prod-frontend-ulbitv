@@ -10,8 +10,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
+import { Input } from 'shared/ui/Input';
+import { Button } from 'shared/ui/Button';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
 import styles from './ChartJs.module.scss';
 

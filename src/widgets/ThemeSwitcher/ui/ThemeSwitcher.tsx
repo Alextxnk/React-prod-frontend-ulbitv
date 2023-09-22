@@ -1,4 +1,4 @@
-import Button, { ThemeButton } from 'shared/ui/Button/Button';
+import { Button, ThemeButton } from 'shared/ui/Button';
 import { useTheme, Theme } from 'app/providers/ThemeProvider';
 import { classNames } from 'shared/lib';
 import { Sun, Moon } from 'lucide-react';

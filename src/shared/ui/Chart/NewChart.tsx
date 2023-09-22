@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode, ChangeEvent } from 'react';
 import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
+import { Button } from 'shared/ui/Button';
+import { Input } from 'shared/ui/Input';
 import _ from 'lodash';
 import styles from './NewChart.module.scss';
 

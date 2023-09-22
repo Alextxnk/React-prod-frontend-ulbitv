@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import _ from 'lodash';
 import styles from './Chart.module.scss';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
+import { Button } from 'shared/ui/Button';
+import { Input } from 'shared/ui/Input';
 import { bubbleSort } from 'shared/lib';
 
 const Chart = () => {

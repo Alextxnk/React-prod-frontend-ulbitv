@@ -27,3 +27,5 @@ declare module '*.jpeg' {
    const value: any;
    export = value;
 }
+
+declare const __IS__DEV__: boolean;
