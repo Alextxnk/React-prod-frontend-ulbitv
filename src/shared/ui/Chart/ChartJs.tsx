@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -9,10 +9,15 @@ import {
    Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import _ from 'lodash';
 import { Input } from 'shared/ui/Input';
 import { Button, ThemeButton } from 'shared/ui/Button';
-import { BubbleState, bubbleSortInit, bubbleSortStep } from 'shared/lib';
+import {
+   BubbleState,
+   bubbleSortInit,
+   bubbleSortStep,
+   randArr
+} from 'shared/lib';
+import { options } from 'shared/config/chartOptions/chartOptions';
 import styles from './ChartJs.module.scss';
 
 ChartJS.register(
@@ -24,24 +29,10 @@ ChartJS.register(
    Legend
 );
 
-export const options = {
-   responsive: true,
-   plugins: {
-      legend: {
-         position: 'top' as const
-      },
-      title: {
-         display: true,
-         text: 'Bubble sort'
-      }
-   }
-};
-
 const ChartJs = () => {
    const [length, setLength] = useState<number>(70);
    const [isSorted, setIsSorted] = useState<boolean>(false);
    let labels: string[] = [];
-   let fakerData: number[];
    let timerId: NodeJS.Timeout;
 
    if (length <= 1000) {
@@ -52,24 +43,14 @@ const ChartJs = () => {
       alert('Максимальное количество элементов 1000');
    }
 
-   const randArr = (): number[] => {
-      const min = 0;
-      const max = 100;
-      const arr: number[] = [...Array(length)];
-
-      for (let i = 0; i < arr.length; i += 1) {
-         arr[i] = _.random(min, max);
-      }
-
-      return arr;
-   };
+   let fakerData: number[] = randArr(length);
 
    const [bubbleState, setBubbleState] = useState<BubbleState>({
-      ...bubbleSortInit([...Array(length)])
+      ...bubbleSortInit([...fakerData])
    });
 
    useEffect(() => {
-      fakerData = randArr();
+      fakerData = randArr(length);
       setBubbleState({
          ...bubbleSortInit(fakerData)
       });
@@ -77,6 +58,9 @@ const ChartJs = () => {
 
    const handleSort = () => {
       setIsSorted(true);
+      /* setBubbleState({
+         ...bubbleSortInit(fakerData)
+      }); */
       timerId = setInterval(() => handleTimer(), 250);
    };
 
@@ -100,7 +84,7 @@ const ChartJs = () => {
 
    const handleShuffle = () => {
       clearInterval(timerId);
-      fakerData = randArr();
+      fakerData = randArr(length);
       setBubbleState({
          ...bubbleSortInit(fakerData),
          done: true
