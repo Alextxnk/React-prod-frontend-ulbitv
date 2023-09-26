@@ -11,9 +11,9 @@ import {
 import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
 import { Input } from 'shared/ui/Input';
-import { Button } from 'shared/ui/Button';
-import styles from './ChartJs.module.scss';
+import { Button, ThemeButton } from 'shared/ui/Button';
 import { BubbleState, bubbleSortInit, bubbleSortStep } from 'shared/lib';
+import styles from './ChartJs.module.scss';
 
 ChartJS.register(
    CategoryScale,
@@ -39,7 +39,10 @@ export const options = {
 
 const ChartJs = () => {
    const [length, setLength] = useState<number>(70);
+   const [isSorted, setIsSorted] = useState<boolean>(false);
    let labels: string[] = [];
+   let fakerData: number[];
+   let timerId: NodeJS.Timeout;
 
    if (length <= 1000) {
       labels = [...Array(length)].map(
@@ -66,15 +69,14 @@ const ChartJs = () => {
    });
 
    useEffect(() => {
-      let fakerData: number[] = randArr();
+      fakerData = randArr();
       setBubbleState({
          ...bubbleSortInit(fakerData)
       });
    }, [length]);
 
-   let timerId: NodeJS.Timeout;
-
    const handleSort = () => {
+      setIsSorted(true);
       timerId = setInterval(() => handleTimer(), 250);
    };
 
@@ -84,6 +86,7 @@ const ChartJs = () => {
 
          if (newState.done) {
             clearInterval(timerId);
+            setIsSorted(false);
          }
 
          return newState;
@@ -97,7 +100,7 @@ const ChartJs = () => {
 
    const handleShuffle = () => {
       clearInterval(timerId);
-      let fakerData: number[] = randArr();
+      fakerData = randArr();
       setBubbleState({
          ...bubbleSortInit(fakerData),
          done: true
@@ -128,7 +131,13 @@ const ChartJs = () => {
                placeholder='Количество элементов'
                onChange={handleChange}
             />
-            <Button onClick={handleSort}>Sort</Button>
+            <Button
+               disabled={isSorted}
+               theme={isSorted ? ThemeButton.disabled : ThemeButton.nothing}
+               onClick={handleSort}
+            >
+               Sort
+            </Button>
             <Button onClick={handleShuffle}>Shuffle</Button>
          </div>
       </div>

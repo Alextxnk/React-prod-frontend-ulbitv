@@ -19,7 +19,6 @@ export type BubbleState = {
    i: number;
    j: number;
    done: boolean;
-   timer?: NodeJS.Timeout;
 };
 
 export const bubbleSortInit = (array: number[]): BubbleState => {
@@ -32,8 +31,6 @@ export const bubbleSortInit = (array: number[]): BubbleState => {
       done: false
    };
 };
-
-// Partial<BubbleState>
 
 export const bubbleSortStep = (state: BubbleState): BubbleState => {
    let { array, swaps, comparisons, i, j, done } = state;
@@ -55,6 +52,7 @@ export const bubbleSortStep = (state: BubbleState): BubbleState => {
       array[j + 1] = temp;
       swaps++;
    }
+
    comparisons++;
 
    if (++j >= i) {

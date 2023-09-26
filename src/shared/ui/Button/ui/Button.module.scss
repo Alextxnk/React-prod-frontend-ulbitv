@@ -6,6 +6,12 @@
    background: transparent;
    border: 1px solid teal;
    cursor: pointer;
+   transition: all 0.5s ease;
+}
+
+.Button:hover {
+   color: white;
+   background-color: var(--inverted-bg-color);
 }
 
 .clear {
@@ -14,4 +20,24 @@
    border: none;
    background: none;
    outline: none;
+}
+
+.clear:hover {
+   transition: none;
+   color: var(--inverted-secondary-color);
+   transition: color 0.5s ease;
+}
+
+.disabled {
+   color: red;
+   border: 1px solid red;
+   cursor: not-allowed;
+}
+
+.disabled:hover {
+   color: white;
+   background-color: red;
+}
+
+.nothing {
 }
