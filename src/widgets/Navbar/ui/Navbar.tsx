@@ -23,9 +23,9 @@ const Navbar = ({ className }: NavbarProps) => {
             <AppLink theme={AppLinkTheme.secondary} to='/about'>
                {t('О сайте')}
             </AppLink>
-            <AppLink theme={AppLinkTheme.secondary} to='/chart'>
+            {/* <AppLink theme={AppLinkTheme.secondary} to='/chart'>
                {t('График')}
-            </AppLink>
+            </AppLink> */}
             <AppLink theme={AppLinkTheme.secondary} to='/chartjs'>
                Chart js
             </AppLink>

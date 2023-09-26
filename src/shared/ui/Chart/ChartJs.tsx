@@ -12,8 +12,8 @@ import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
 import { Input } from 'shared/ui/Input';
 import { Button } from 'shared/ui/Button';
-import { bubbleSort } from 'shared/lib/bubbleSort/bubbleSort';
 import styles from './ChartJs.module.scss';
+import { BubbleState, bubbleSortInit, bubbleSortStep } from 'shared/lib';
 
 ChartJS.register(
    CategoryScale,
@@ -49,8 +49,6 @@ const ChartJs = () => {
       alert('Максимальное количество элементов 1000');
    }
 
-   const [labelData, setLabelData] = useState<number[]>([]);
-
    const randArr = (): number[] => {
       const min = 0;
       const max = 100;
@@ -60,24 +58,50 @@ const ChartJs = () => {
          arr[i] = _.random(min, max);
       }
 
-      console.log('🚀 ~ file: Chart.tsx:72 ~ randArr ~ arr:', arr);
       return arr;
    };
 
+   const [bubbleState, setBubbleState] = useState<BubbleState>({
+      ...bubbleSortInit([...Array(length)])
+   });
+
    useEffect(() => {
       let fakerData: number[] = randArr();
-      setLabelData(fakerData);
+      setBubbleState({
+         ...bubbleSortInit(fakerData)
+      });
    }, [length]);
+
+   let timerId: NodeJS.Timeout;
+
+   const handleSort = () => {
+      timerId = setInterval(() => handleTimer(), 250);
+   };
+
+   const handleTimer = () => {
+      setBubbleState((oldState) => {
+         const newState = bubbleSortStep(oldState) as BubbleState;
+
+         if (newState.done) {
+            clearInterval(timerId);
+         }
+
+         return newState;
+      });
+   };
 
    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const value = Number(event.target.value);
       setLength(value);
    };
 
-   const handleSort = () => {
-      const arr: number[] = bubbleSort(labelData);
-      setLabelData(arr);
-      console.log('🚀 ~ file: Chart.tsx:85 ~ handleSort ~ arr:', arr);
+   const handleShuffle = () => {
+      clearInterval(timerId);
+      let fakerData: number[] = randArr();
+      setBubbleState({
+         ...bubbleSortInit(fakerData),
+         done: true
+      });
    };
 
    let data = {
@@ -85,7 +109,7 @@ const ChartJs = () => {
       datasets: [
          {
             label: 'Random Dataset',
-            data: labelData,
+            data: bubbleState.array,
             backgroundColor: 'rgba(255, 99, 132, 0.5)'
          }
       ]
@@ -104,7 +128,8 @@ const ChartJs = () => {
                placeholder='Количество элементов'
                onChange={handleChange}
             />
-            <Button onClick={handleSort}>Сортировка</Button>
+            <Button onClick={handleSort}>Sort</Button>
+            <Button onClick={handleShuffle}>Shuffle</Button>
          </div>
       </div>
    );

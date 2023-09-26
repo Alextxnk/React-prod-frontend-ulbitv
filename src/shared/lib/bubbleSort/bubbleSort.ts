@@ -11,3 +11,63 @@ export const bubbleSort = (arr: number[]): number[] => {
 
    return arr.map((el) => el);
 };
+
+export type BubbleState = {
+   array: number[];
+   swaps: number;
+   comparisons: number;
+   i: number;
+   j: number;
+   done: boolean;
+   timer?: NodeJS.Timeout;
+};
+
+export const bubbleSortInit = (array: number[]): BubbleState => {
+   return {
+      array,
+      swaps: 0,
+      comparisons: 0,
+      i: array.length - 1,
+      j: 0,
+      done: false
+   };
+};
+
+// Partial<BubbleState>
+
+export const bubbleSortStep = (state: BubbleState): BubbleState => {
+   let { array, swaps, comparisons, i, j, done } = state;
+
+   if (i <= 0) {
+      return {
+         array,
+         swaps,
+         comparisons,
+         i,
+         j,
+         done: true
+      };
+   }
+
+   if (array[j] > array[j + 1]) {
+      let temp = array[j];
+      array[j] = array[j + 1];
+      array[j + 1] = temp;
+      swaps++;
+   }
+   comparisons++;
+
+   if (++j >= i) {
+      i--;
+      j = 0;
+   }
+
+   return {
+      array,
+      swaps,
+      comparisons,
+      i,
+      j,
+      done
+   };
+};

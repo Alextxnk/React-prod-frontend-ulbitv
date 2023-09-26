@@ -1,4 +1,9 @@
-import { bubbleSort } from './bubbleSort/bubbleSort';
+import {
+   bubbleSort,
+   bubbleSortInit,
+   bubbleSortStep,
+   BubbleState
+} from './bubbleSort/bubbleSort';
 import { classNames } from './classNames/classNames';
 
-export { bubbleSort, classNames };
+export { bubbleSort, bubbleSortInit, bubbleSortStep, BubbleState, classNames };
