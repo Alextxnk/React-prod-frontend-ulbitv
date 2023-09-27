@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -9,8 +9,6 @@ import {
    Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Input } from 'shared/ui/Input';
-import { Button, ThemeButton } from 'shared/ui/Button';
 import {
    BubbleState,
    bubbleSortInit,
@@ -18,6 +16,8 @@ import {
    randArr
 } from 'shared/lib';
 import { options } from 'shared/config/chartOptions/chartOptions';
+import { ChartConfig } from '../ChartConfig';
+import { ChartContext } from 'app/providers/ChartProvider';
 import styles from './ChartJs.module.scss';
 
 ChartJS.register(
@@ -30,7 +30,7 @@ ChartJS.register(
 );
 
 const ChartJs = () => {
-   const [length, setLength] = useState<number>(70);
+   const { length } = useContext(ChartContext);
    const [isSorted, setIsSorted] = useState<boolean>(false);
    let labels: string[] = [];
    let timerId: NodeJS.Timeout;
@@ -56,13 +56,13 @@ const ChartJs = () => {
       });
    }, [length]);
 
-   const handleSort = () => {
+   const handleSort = useCallback(() => {
       setIsSorted(true);
       /* setBubbleState({
          ...bubbleSortInit(fakerData)
       }); */
       timerId = setInterval(() => handleTimer(), 250);
-   };
+   }, [timerId]);
 
    const handleTimer = () => {
       setBubbleState((oldState) => {
@@ -77,19 +77,15 @@ const ChartJs = () => {
       });
    };
 
-   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const value = Number(event.target.value);
-      setLength(value);
-   };
-
-   const handleShuffle = () => {
+   const handleShuffle = useCallback(() => {
       clearInterval(timerId);
+      setIsSorted(false);
       fakerData = randArr(length);
       setBubbleState({
          ...bubbleSortInit(fakerData),
          done: true
       });
-   };
+   }, [clearInterval, setBubbleState]);
 
    let data = {
       labels,
@@ -107,23 +103,11 @@ const ChartJs = () => {
          <div className={styles.Chart}>
             <Bar options={options} data={data} />
          </div>
-         <div className={styles.ChartConfig}>
-            <h3>Количество элементов</h3>
-            <Input
-               type='text'
-               value={length}
-               placeholder='Количество элементов'
-               onChange={handleChange}
-            />
-            <Button
-               disabled={isSorted}
-               theme={isSorted ? ThemeButton.disabled : ThemeButton.nothing}
-               onClick={handleSort}
-            >
-               Sort
-            </Button>
-            <Button onClick={handleShuffle}>Shuffle</Button>
-         </div>
+         <ChartConfig
+            isSorted={isSorted}
+            handleSort={handleSort}
+            handleShuffle={handleShuffle}
+         />
       </div>
    );
 };
