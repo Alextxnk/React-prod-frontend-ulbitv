@@ -30,8 +30,8 @@ ChartJS.register(
 );
 
 const ChartJs = () => {
-   const { length } = useContext(ChartContext);
-   const [isSorted, setIsSorted] = useState<boolean>(false);
+   const { length, setIsSorted, isDone, setIsDone } = useContext(ChartContext);
+
    let labels: string[] = [];
    let timerId: NodeJS.Timeout;
 
@@ -57,10 +57,11 @@ const ChartJs = () => {
    }, [length]);
 
    const handleSort = useCallback(() => {
+      setIsDone(false);
       setIsSorted(true);
-      /* setBubbleState({
+      setBubbleState({
          ...bubbleSortInit(fakerData)
-      }); */
+      });
       timerId = setInterval(() => handleTimer(), 250);
    }, [timerId]);
 
@@ -68,7 +69,8 @@ const ChartJs = () => {
       setBubbleState((oldState) => {
          const newState = bubbleSortStep(oldState) as BubbleState;
 
-         if (newState.done) {
+         // newState.done
+         if (isDone) {
             clearInterval(timerId);
             setIsSorted(false);
          }
@@ -81,11 +83,14 @@ const ChartJs = () => {
       clearInterval(timerId);
       setIsSorted(false);
       fakerData = randArr(length);
+
+      setIsDone(true);
+
       setBubbleState({
          ...bubbleSortInit(fakerData),
          done: true
       });
-   }, [clearInterval, setBubbleState]);
+   }, [clearInterval, setBubbleState, setIsDone]);
 
    let data = {
       labels,
@@ -103,11 +108,7 @@ const ChartJs = () => {
          <div className={styles.Chart}>
             <Bar options={options} data={data} />
          </div>
-         <ChartConfig
-            isSorted={isSorted}
-            handleSort={handleSort}
-            handleShuffle={handleShuffle}
-         />
+         <ChartConfig handleSort={handleSort} handleShuffle={handleShuffle} />
       </div>
    );
 };

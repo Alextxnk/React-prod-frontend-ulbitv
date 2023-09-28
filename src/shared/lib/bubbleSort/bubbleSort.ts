@@ -1,3 +1,6 @@
+import { ChartContext } from 'app/providers/ChartProvider';
+import { useContext } from 'react';
+
 export const bubbleSort = (arr: number[]): number[] => {
    for (let j = arr.length - 1; j > 0; j--) {
       for (let i = 0; i < j; i++) {
@@ -18,7 +21,7 @@ export type BubbleState = {
    comparisons: number;
    i: number;
    j: number;
-   done: boolean;
+   done?: boolean;
 };
 
 export const bubbleSortInit = (array: number[]): BubbleState => {
@@ -33,9 +36,12 @@ export const bubbleSortInit = (array: number[]): BubbleState => {
 };
 
 export const bubbleSortStep = (state: BubbleState): BubbleState => {
+   const { setIsDone, setIsSorted } = useContext(ChartContext);
    let { array, swaps, comparisons, i, j, done } = state;
 
    if (i <= 0) {
+      setIsDone(true);
+      setIsSorted(false);
       return {
          array,
          swaps,

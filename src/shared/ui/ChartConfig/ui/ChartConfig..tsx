@@ -5,22 +5,19 @@ import styles from './ChartConfig.module.scss';
 import { ChartContext } from 'app/providers/ChartProvider';
 
 interface ChartConfigProps {
-   isSorted: boolean;
    handleSort: () => void;
    handleShuffle: () => void;
 }
 
-const ChartConfig = ({
-   isSorted,
-   handleSort,
-   handleShuffle
-}: ChartConfigProps) => {
-   const { length, setLength } = useContext(ChartContext);
+const ChartConfig = ({ handleSort, handleShuffle }: ChartConfigProps) => {
+   const { length, setLength, isSorted } = useContext(ChartContext);
 
    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const value = Number(event.target.value);
       setLength(value);
    };
+
+   console.log('Config re-render');
 
    return (
       <div className={styles.ChartConfig}>
