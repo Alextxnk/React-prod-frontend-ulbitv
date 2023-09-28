@@ -1,8 +1,8 @@
 import { ChangeEvent, memo, useContext } from 'react';
 import { Input } from 'shared/ui/Input';
 import { Button, ThemeButton } from 'shared/ui/Button';
-import styles from './ChartConfig.module.scss';
 import { ChartContext } from 'app/providers/ChartProvider';
+import styles from './ChartConfig.module.scss';
 
 interface ChartConfigProps {
    handleSort: () => void;

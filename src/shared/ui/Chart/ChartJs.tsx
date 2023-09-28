@@ -57,20 +57,21 @@ const ChartJs = () => {
    }, [length]);
 
    const handleSort = useCallback(() => {
-      setIsDone(false);
+      // setIsDone(false);
       setIsSorted(true);
       setBubbleState({
-         ...bubbleSortInit(fakerData)
+         ...bubbleSortInit(fakerData),
+         done: false
       });
       timerId = setInterval(() => handleTimer(), 250);
-   }, [timerId]);
+   }, [timerId, setIsSorted, setBubbleState]);
 
    const handleTimer = () => {
       setBubbleState((oldState) => {
          const newState = bubbleSortStep(oldState) as BubbleState;
 
-         // newState.done
-         if (isDone) {
+         // newState.done | isDone
+         if (newState.done) {
             clearInterval(timerId);
             setIsSorted(false);
          }
@@ -84,13 +85,13 @@ const ChartJs = () => {
       setIsSorted(false);
       fakerData = randArr(length);
 
-      setIsDone(true);
+      // setIsDone(true);
 
       setBubbleState({
          ...bubbleSortInit(fakerData),
          done: true
       });
-   }, [clearInterval, setBubbleState, setIsDone]);
+   }, [clearInterval, setBubbleState, setIsSorted]);
 
    let data = {
       labels,

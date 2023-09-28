@@ -7,6 +7,8 @@ export interface ChartContextProps {
    setIsSorted?: (isSorted: boolean) => void;
    isDone?: boolean;
    setIsDone?: (isDone: boolean) => void;
+   speed?: number;
+   setSpeed?: (speed: number) => void;
 }
 
 export const ChartContext = createContext<ChartContextProps>({});

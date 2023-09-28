@@ -5,6 +5,7 @@ const ChartProvider: FC = ({ children }) => {
    const [length, setLength] = useState<number>(70);
    const [isSorted, setIsSorted] = useState<boolean>(false);
    const [isDone, setIsDone] = useState<boolean>(false);
+   const [speed, setSpeed] = useState<number>(1);
 
    const defaultProps = useMemo(
       () => ({
@@ -13,9 +14,11 @@ const ChartProvider: FC = ({ children }) => {
          isSorted: isSorted,
          setIsSorted: setIsSorted,
          isDone: isDone,
-         setIsDone: setIsDone
+         setIsDone: setIsDone,
+         speed: speed,
+         setSpeed: setSpeed
       }),
-      [length, isSorted, isDone]
+      [length, isSorted, isDone, speed]
    );
 
    return (
