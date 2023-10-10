@@ -6,6 +6,7 @@ export const buildDevServer = (options: BuildOptions): DevServerConfiguration =>
       port: options.port,
       open: true,
       // чтобы после обновления страницы все продолжало работать
-      historyApiFallback: true
+      historyApiFallback: true,
+      hot: true
    };
 };

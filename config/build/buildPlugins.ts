@@ -18,6 +18,7 @@ export const buildPlugins = ({
       }),
       new webpack.DefinePlugin({
          __IS__DEV__: JSON.stringify(isDev)
-      })
+      }),
+      new webpack.HotModuleReplacementPlugin()
    ];
 };
