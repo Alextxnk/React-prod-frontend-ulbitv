@@ -134,8 +134,8 @@ const Bar = ({ x, y, width, height, highestExpense, content }: BarProps) => (
          height={height}
          fill={
             highestExpense === content
-               ? `rgba(197, 3, 3, 0.65)`
-               : `rgba(75, 192, 192, 0.8)`
+               ? 'rgba(197, 3, 3, 0.65)'
+               : 'rgba(75, 192, 192, 0.8)'
          }
       />
       <text x={x} y={y - 5}>
