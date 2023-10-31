@@ -1,7 +1,8 @@
 module.exports = {
    env: {
       browser: true,
-      es2021: true
+      es2021: true,
+      jest: true
    },
    extends: [
       'plugin:react/recommended',
@@ -54,7 +55,8 @@ module.exports = {
       'no-param-reassign': 'warn',
       'react/no-array-index-key': 'warn',
       'no-return-assign': 'warn',
-      'no-use-before-define': 'warn'
+      'no-use-before-define': 'warn',
+      'max-len': 'warn'
    },
    globals: {
       __IS_DEV__: true
