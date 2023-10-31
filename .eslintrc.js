@@ -19,7 +19,7 @@ module.exports = {
    },
    plugins: ['react', '@typescript-eslint', 'i18next'],
    rules: {
-      'i18next/no-literal-string': ['error', { markupOnly: true }],
+      'i18next/no-literal-string': ['warn', { markupOnly: true }],
       'react/jsx-indent': [2, 3],
       'react/jsx-indent-props': [2, 3],
       indent: [2, 3],

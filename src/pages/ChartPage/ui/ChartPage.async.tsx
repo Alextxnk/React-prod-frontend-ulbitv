@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-// export const AboutPageAsync = lazy(() => import('./AboutPage'));
+// export const ChartPageAsync = lazy(() => import('./ChartPage'));
 
 // сделаем искусственную задержку
 export const ChartPageAsync = lazy(
