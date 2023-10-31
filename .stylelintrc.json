@@ -1,0 +1,13 @@
+{
+   "extends": "stylelint-config-standard-scss",
+   "rules": {
+      "indentation": 3,
+      "string-quotes": "single",
+      "custom-property-empty-line-before": null,
+      "selector-class-pattern": null,
+      "value-keyword-case": null,
+      "block-no-empty": null,
+      "alpha-value-notation": null,
+      "color-function-notation": null
+   }
+}

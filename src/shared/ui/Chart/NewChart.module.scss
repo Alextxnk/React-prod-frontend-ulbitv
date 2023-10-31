@@ -18,15 +18,16 @@
    font-size: 2.5vh;
 }
 
-.expense:before {
+.expense::before {
    content: '.';
    background-color: var(--blue-color);
    color: var(--blue-color);
    width: 3vh;
    display: inline-block;
-   margin: 0 0.5vh 0 0.5vh;
+   margin: 0 0.5vh;
 }
-.highestExpense:before {
+
+.highestExpense::before {
    content: '.';
    background-color: var(--red-color);
    color: var(--red-color);
