@@ -56,7 +56,7 @@ module.exports = {
       'react/no-array-index-key': 'warn',
       'no-return-assign': 'warn',
       'no-use-before-define': 'warn',
-      'max-len': 'warn'
+      'max-len': ['warn', { ignoreComments: true }]
    },
    globals: {
       __IS_DEV__: true
