@@ -10,7 +10,7 @@
 }
 
 .Button:hover {
-   color: white;
+   color: var(--inverted-secondary-color);
    background-color: var(--inverted-bg-color);
 }
 

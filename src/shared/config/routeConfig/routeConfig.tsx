@@ -18,7 +18,7 @@ export const RoutePath: Record<AppRoutes, string> = {
    [AppRoutes.about]: '/about',
    [AppRoutes.chart]: '/chart',
    [AppRoutes.chartJs]: '/chartjs',
-   // последний маршрут с notFound
+   // последний маршрут должен быть с notFound
    [AppRoutes.notFound]: '*'
 };
 
