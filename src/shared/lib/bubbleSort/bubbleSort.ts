@@ -2,7 +2,7 @@ export const bubbleSort = (arr: number[]): number[] => {
    for (let j = arr.length - 1; j > 0; j--) {
       for (let i = 0; i < j; i++) {
          if (arr[i] > arr[i + 1]) {
-            let temp = arr[i];
+            const temp = arr[i];
             arr[i] = arr[i + 1];
             arr[i + 1] = temp;
          }
@@ -51,7 +51,7 @@ export const bubbleSortStep = (
    }
 
    if (array[j] > array[j + 1]) {
-      let temp = array[j];
+      const temp = array[j];
       array[j] = array[j + 1];
       array[j + 1] = temp;
       swaps++;

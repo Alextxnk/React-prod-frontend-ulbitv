@@ -93,7 +93,7 @@ const ChartJs = () => {
       });
    }, [clearInterval, setBubbleState, setIsSorted]);
 
-   let data = {
+   const data = {
       labels,
       datasets: [
          {

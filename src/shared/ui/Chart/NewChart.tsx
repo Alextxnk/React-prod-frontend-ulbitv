@@ -14,8 +14,7 @@ const NewChart = () => {
    const barWidth: number = 20;
    const barMargin: number = 20;
 
-   const createRandomData = (data: number[]): number[] =>
-      data.map((expense: number) => (expense = _.random(0, max)));
+   const createRandomData = (data: number[]): number[] => data.map((expense: number) => (expense = _.random(0, max)));
 
    const data: number[] = createRandomData([...Array(length)]);
 
@@ -27,12 +26,11 @@ const NewChart = () => {
       }
    }, [length]);
 
-   let width: number = length * (barWidth + barMargin);
+   const width: number = length * (barWidth + barMargin);
 
-   const calculateHighestExpense = (data: number[]): number =>
-      data.reduce((acc, cur) => {
-         return cur > acc ? cur : acc;
-      }, 0);
+   const calculateHighestExpense = (data: number[]): number => data.reduce((acc, cur) => {
+      return cur > acc ? cur : acc;
+   }, 0);
 
    const [highestExpense, setHighestExpense] = useState<number>(
       calculateHighestExpense(data)

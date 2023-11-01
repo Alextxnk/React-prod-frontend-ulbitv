@@ -5,8 +5,7 @@ import {
    ThemeContext
 } from '../lib/ThemeContext';
 
-const defaultTheme =
-   (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.light;
+const defaultTheme = (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.light;
 
 const ThemeProvider: FC = ({ children }) => {
    const [theme, setTheme] = useState<Theme>(defaultTheme);

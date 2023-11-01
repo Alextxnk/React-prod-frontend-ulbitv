@@ -4,9 +4,8 @@ import { lazy } from 'react';
 
 // сделаем искусственную задержку
 export const ChartJsPageAsync = lazy(
-   () =>
-      new Promise((resolve) => {
-         // @ts-ignore
-         setTimeout(() => resolve(import('./ChartJsPage')), 1500);
-      })
+   () => new Promise((resolve) => {
+      // @ts-ignore
+      setTimeout(() => resolve(import('./ChartJsPage')), 1500);
+   })
 );
