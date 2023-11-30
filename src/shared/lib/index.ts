@@ -6,6 +6,7 @@ import {
 } from './bubbleSort/bubbleSort';
 import { classNames } from './classNames/classNames';
 import { randArr } from './randomArray/randomArray';
+import { renderWithTranslation } from './tests/renderWithTranslation/renderWithTranslation';
 
 export {
    bubbleSort,
@@ -13,5 +14,6 @@ export {
    bubbleSortStep,
    BubbleState,
    classNames,
-   randArr
+   randArr,
+   renderWithTranslation
 };
